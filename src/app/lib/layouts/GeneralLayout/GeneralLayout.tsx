@@ -1,4 +1,4 @@
-import React, { FC, PropsWithChildren } from "react";
+import { FC, PropsWithChildren } from "react";
 import { Box, Stack } from "@mui/material";
 import { AsideNavigation } from "../../../components/AsideNavigation/AsideNavigation";
 import { ContentLayout } from "../ContentLayout/ContentLayout";

@@ -1,15 +1,14 @@
-import React from "react";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
+import { Box, Button, Stack, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import createImg from "../../../assets/Create.png";
 import { Title } from "../../lib/theme/styledComponent";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+
 
 export const CreatePage = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <Box
@@ -21,14 +20,11 @@ export const CreatePage = () => {
         <Grid size={6}>
           <Box maxWidth={"490px"}>
             <Typography variant="h2" fontWeight={300} display={"inline"}>
-              We can move you everywhere.
-              <Title> Fast and Easily</Title>
+             {t("createTitle.0")}
+              <Title>  {t("createTitle.1")}</Title>
             </Typography>
             <Typography variant="body1">
-              Please choose your request. If you want to send a parcel, you need
-              to create an Order type request. If you want to deliver a parcel
-              that has already been ordered, you should create a Delivery type
-              request.
+              {t("createDescription")}
             </Typography>
             <Stack direction="row" spacing={2} maxWidth={"80%"} mt={6}>
               <Button
@@ -36,7 +32,7 @@ export const CreatePage = () => {
                 fullWidth
                 onClick={() => navigate("order")}
               >
-                Order
+                {t("order")}
               </Button>
 
               <Button
@@ -45,7 +41,7 @@ export const CreatePage = () => {
                 fullWidth
                 onClick={() => navigate("deliver")}
               >
-                Deliver
+               {t("deliver")}
               </Button>
             </Stack>
           </Box>

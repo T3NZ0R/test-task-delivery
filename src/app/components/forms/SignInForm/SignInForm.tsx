@@ -1,15 +1,14 @@
-import React from "react";
-import Button from "@mui/material/Button";
-import Stack from "@mui/material/Stack";
-import TextField from "@mui/material/TextField";
-import Typography from "@mui/material/Typography";
 import { useFormik } from "formik";
+import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+
+import {Button, Stack, TextField, Typography} from "@mui/material";
 import { validationSchemaSignIn } from "../../../lib/schemes/schemes";
 import { useLocaleStorage } from "../../../hooks/useLocaleStorage/useLocaleStorage";
-import { useNavigate } from "react-router-dom";
 import { IUser } from "../../../lib/interfaces/interfaces";
 
 export const SignInForm = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const userLocalStorage = useLocaleStorage({ key: "users" });
@@ -28,7 +27,7 @@ export const SignInForm = () => {
         if (user.email === values.email && user.password === values.password) {
           tokenLocalStorage.setLocaleStorage(crypto.randomUUID());
           activeUserLocalStorage.setLocaleStorage(JSON.stringify(user));
-          navigate(`/${user.id}`);
+          navigate(`/${user.id}/create`);
         }
       });
     },
@@ -38,7 +37,7 @@ export const SignInForm = () => {
     <form onSubmit={formik.handleSubmit}>
       <Stack direction="column" gap={2} width={"100%"} height={"fit-content"}>
         <Typography variant="h2" width={"100%"} textAlign={"center"} pb={3}>
-          Welcome back!
+          {t("welcomeBack")}
         </Typography>
 
         <TextField
@@ -49,8 +48,8 @@ export const SignInForm = () => {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           error={formik.touched.email && Boolean(formik.errors.email)}
-          helperText={formik.touched.email && formik.errors.email}
-          label="Email"
+          helperText={formik.touched.email && formik.errors.email }
+          label={t("email")}
         />
         <TextField
           id="password"
@@ -60,13 +59,14 @@ export const SignInForm = () => {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           error={formik.touched.password && Boolean(formik.errors.password)}
-          helperText={formik.touched.password && formik.errors.password}
-          label="Password"
+          helperText={formik.touched.password && formik.errors.password }
+          label={t("password")}
         />
         <Button variant="contained" size="large" type="submit">
-          Sign In
+          {t("signIn")}
         </Button>
       </Stack>
     </form>
   );
 };
+

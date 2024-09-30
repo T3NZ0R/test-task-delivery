@@ -1,29 +1,35 @@
-import React, { FC, Key, useState } from "react";
-import { useGetCities } from "../../../hooks/useGetCountries/useGetCities";
-import Autocomplete from "@mui/material/Autocomplete";
-import Container from "@mui/material/Container";
-import Stack from "@mui/material/Stack";
-import TextField from "@mui/material/TextField";
-import Typography from "@mui/material/Typography";
-import Grid from "@mui/material/Grid2";
-import { Title } from "../../../lib/theme/styledComponent";
+import { FC, Key, useState } from "react";
+import dayjs from "dayjs";
 import { useFormik } from "formik";
-import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import Button from "@mui/material/Button";
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import Select from "@mui/material/Select";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import {
+  Autocomplete,
+  Button,
+  Container,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
+import Grid from "@mui/material/Grid2";
+
 import { TYPES } from "../../../lib/enums/enums";
-import { validationSchemaOrderRequest } from "../../../lib/schemes/schemes";
-import dayjs from "dayjs";
+import { useGetCities } from "../../../hooks/useGetCountries/useGetCities";
 import { useLocaleStorage } from "../../../hooks/useLocaleStorage/useLocaleStorage";
 import { useDispatch } from "react-redux";
 import { createRequest, editRequest } from "../../../store/requests.slice";
 import { IRequest } from "../../../lib/interfaces/interfaces";
+import { validationSchemaOrderRequest } from "../../../lib/schemes/schemes";
+
+import { Title } from "../../../lib/theme/styledComponent";
+
+import { useTranslation } from "react-i18next";
 
 export const OrderForm: FC<{
   initialValues?: IRequest;
@@ -34,6 +40,8 @@ export const OrderForm: FC<{
   const [resetInputField, setResetInputField] = useState<boolean>(false);
   const cities: { label: string }[] = getCities() || [];
   const dispatch = useDispatch();
+
+  const { t } = useTranslation();
 
   const formik = useFormik({
     initialValues: initialValues || {
@@ -97,12 +105,11 @@ export const OrderForm: FC<{
                   display={"inline"}
                   style={{ fontWeight: "300!important" }}
                 >
-                  Create an <Title> Order Request</Title>
+                  {t("orderTitle.0")} <Title> {t("orderTitle.1")}</Title>
                 </Typography>
               </Stack>
               <Typography variant="body1" textAlign={"center"}>
-                Please fill out the form below to send your parcel. All fields
-                are required.
+                {t("orderDescription")}
               </Typography>
             </>
           )}
@@ -122,7 +129,7 @@ export const OrderForm: FC<{
                   renderInput={(params) => (
                     <TextField
                       {...params}
-                      label="City of Origin"
+                      label={t("cityOfOrigin")}
                       name="cityOrigin"
                       id="cityOrigin"
                       value={formik.values.cityOrigin}
@@ -131,7 +138,8 @@ export const OrderForm: FC<{
                         Boolean(formik.errors.cityOrigin)
                       }
                       helperText={
-                        formik.touched.cityOrigin && formik.errors.cityOrigin
+                        formik.touched.cityOrigin &&
+                        formik.errors.cityOrigin 
                       }
                       onBlur={formik.handleBlur}
                       fullWidth
@@ -139,16 +147,14 @@ export const OrderForm: FC<{
                   )}
                 />
                 <FormControl fullWidth>
-                  <InputLabel id="demo-simple-select-label">
-                    Type of parcel
-                  </InputLabel>
+                  <InputLabel id="type-label">{t("type")}</InputLabel>
                   <Select
                     labelId="type-label"
                     id="type"
                     name="type"
                     value={formik.values.type}
                     defaultValue={initialValues?.type}
-                    label="Type of parcel"
+                    label={t("type")}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     error={formik.touched.type && Boolean(formik.errors.type)}
@@ -159,7 +165,7 @@ export const OrderForm: FC<{
                           variant="body1"
                           sx={{ textTransform: "capitalize" }}
                         >
-                          {type}
+                          {t(type)}
                         </Typography>
                       </MenuItem>
                     ))}
@@ -169,7 +175,7 @@ export const OrderForm: FC<{
                 <TextField
                   id="description"
                   name="description"
-                  label="Parcel description"
+                  label={t("parcelDescription")}
                   variant="outlined"
                   multiline
                   rows={4}
@@ -181,7 +187,8 @@ export const OrderForm: FC<{
                     Boolean(formik.errors.description)
                   }
                   helperText={
-                    formik.touched.description && formik.errors.description
+                    formik.touched.description &&
+                    formik.errors.description 
                   }
                   onBlur={formik.handleBlur}
                 />
@@ -199,7 +206,7 @@ export const OrderForm: FC<{
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    label="Destination City"
+                    label={t("destinationCity")}
                     name="cityDestination"
                     id="cityDestination"
                     value={formik.values.cityDestination}
@@ -209,7 +216,7 @@ export const OrderForm: FC<{
                     }
                     helperText={
                       formik.touched.cityDestination &&
-                      formik.errors.cityDestination
+                      formik.errors.cityDestination 
                     }
                     onBlur={formik.handleBlur}
                     fullWidth
@@ -221,7 +228,7 @@ export const OrderForm: FC<{
                 sx={{ width: "100%", mt: 2 }}
               >
                 <DatePicker
-                  label="Date of dispatch"
+                  label={t("dateOfDispatch")}
                   name="date"
                   value={dayjs(formik.values.date)}
                   onChange={(newValue) => {
@@ -236,7 +243,7 @@ export const OrderForm: FC<{
           </Grid>
 
           <Button variant="contained" fullWidth type="submit">
-            {!initialValues ? "Submit" : "Edit"} Order
+            {!initialValues ? t("submit") : t("edit")} {t("order")}
           </Button>
         </Container>
       </form>

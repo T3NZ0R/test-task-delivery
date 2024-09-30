@@ -1,4 +1,4 @@
-import React, { FC, PropsWithChildren } from "react";
+import  { FC, PropsWithChildren } from "react";
 import Grid from "@mui/material/Grid2";
 import Image from "../../../../assets/NotAuthedLayoutImg.png";
 import { Box } from "@mui/material";

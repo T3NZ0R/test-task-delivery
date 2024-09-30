@@ -1,16 +1,17 @@
-import React, { FC } from "react";
-import TableRow from "@mui/material/TableRow";
-import TableCell from "@mui/material/TableCell";
-import TableSortLabel from "@mui/material/TableSortLabel";
-import TableHead from "@mui/material/TableHead";
+import  { FC } from "react";
+import { TableRow, TableCell, TableSortLabel, TableHead } from "@mui/material";
 import { headCells } from "../../lib/mock/mock.data";
 import { IRequest, ITableHeadSort } from "../../lib/interfaces/interfaces";
+
+import { useTranslation } from "react-i18next";
 
 export const TableHeadSort: FC<ITableHeadSort> = ({
   order,
   orderBy,
   onRequestSort,
 }) => {
+
+  const { t } = useTranslation();
   const createSortHandler =
     (property: keyof Omit<IRequest, "type" | "description">) =>
     (event: MouseEvent) => {
@@ -28,9 +29,9 @@ export const TableHeadSort: FC<ITableHeadSort> = ({
               <TableSortLabel
                 active={orderBy === headCell.id}
                 direction={orderBy === headCell.id ? order : "asc"}
-                onClick={createSortHandler(headCell.id)}
+                onClick={createSortHandler(headCell.id) as () => void}
               >
-                {headCell.label}
+                {t(headCell.label)}
               </TableSortLabel>
             </TableCell>
           );

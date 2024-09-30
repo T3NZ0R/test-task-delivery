@@ -1,8 +1,8 @@
-import React, { FC } from "react";
-import Stack from "@mui/material/Stack";
+import { FC } from "react";
 import { INavigationItem } from "../../lib/interfaces/interfaces";
-import Typography from "@mui/material/Typography";
 import { Link, useLocation } from "react-router-dom";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
 export const NavigationItem: FC<INavigationItem> = ({ title, path, icon }) => {
   const location = useLocation();
 

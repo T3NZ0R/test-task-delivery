@@ -1,9 +1,9 @@
-import React, { FC, PropsWithChildren } from "react";
+import { FC, PropsWithChildren } from "react";
 import { useLocation } from "react-router-dom";
+import { Box } from "@mui/material";
 import { AUTH_ROUTERS } from "../enums/enums";
 import { NotAuthedLayout } from "./NotAuthedLayout/NotAuthedLayout";
 import { GeneralLayout } from "./GeneralLayout/GeneralLayout";
-import { Box } from "@mui/material";
 import { Header } from "../../components/Header/Header";
 
 export const Layout: FC<PropsWithChildren> = ({ children }) => {

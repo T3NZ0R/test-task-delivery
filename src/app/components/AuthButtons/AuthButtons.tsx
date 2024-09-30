@@ -1,10 +1,9 @@
-import React from "react";
-import { useLocaleStorage } from "../../hooks/useLocaleStorage/useLocaleStorage";
-import { Box, Button } from "@mui/material";
-import { useTranslation } from "react-i18next";
-import { useLocation, useNavigate } from "react-router-dom";
 import { AUTH_ROUTERS } from "../../lib/enums/enums";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useLogout } from "../../hooks/useLogOut/useLogOut";
+import { useLocaleStorage } from "../../hooks/useLocaleStorage/useLocaleStorage";
+import { useTranslation } from "react-i18next";
+import { Box, Button } from "@mui/material";
 
 export const AuthButtons = () => {
   const { getLocaleStorage } = useLocaleStorage({ key: "token" });

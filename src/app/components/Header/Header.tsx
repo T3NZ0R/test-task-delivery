@@ -1,4 +1,3 @@
-import React from "react";
 import { Stack } from "@mui/material";
 import { LanguageSelector } from "../LanguageSelector/LanguageSelector";
 import { AuthButtons } from "../AuthButtons/AuthButtons";

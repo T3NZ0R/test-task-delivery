@@ -1,17 +1,24 @@
-import React, { useState } from "react";
-import Container from "@mui/material/Container";
-import Paper from "@mui/material/Paper";
-import Stack from "@mui/material/Stack";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Typography from "@mui/material/Typography";
+import  { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import dayjs from "dayjs";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Container,
+  Paper,
+  Stack,
+  Typography,
+  Chip,
+  Box,
+  IconButton,
+  Modal,
+} from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { useDispatch, useSelector } from "react-redux";
 import {
   IRequest,
   IRootState,
@@ -20,12 +27,11 @@ import {
 import { useLocaleStorage } from "../../hooks/useLocaleStorage/useLocaleStorage";
 import { useParams } from "react-router-dom";
 import { createDataUser } from "../../lib/utils/rowData";
-import dayjs from "dayjs";
-import Chip from "@mui/material/Chip";
-import { Box, IconButton, Modal } from "@mui/material";
 import { deleteRequest } from "../../store/requests.slice";
 import { OrderForm } from "../../components/forms/OrderForm/OrderForm";
 import { DeliverForm } from "../../components/forms/DeliverForm/DeliverForm";
+
+import { useTranslation } from "react-i18next";
 
 const style = {
   position: "absolute" as "const",
@@ -40,6 +46,8 @@ const style = {
 
 export const UserRequests = () => {
   const params = useParams();
+
+  const { t } = useTranslation();
 
   const request = useSelector((state: IRootState) => state.requestsReducer);
   const { getLocaleStorage } = useLocaleStorage({ key: "requests" });
@@ -80,36 +88,29 @@ export const UserRequests = () => {
     )
   );
 
+  const userTable = t("userTable", { returnObjects: true });
+
   return (
     <>
       <Container sx={{ mt: 3 }}>
-        <Typography variant="h3">User requests</Typography>
+        <Typography variant="h3">{t("userRequests")}</Typography>
         <Stack></Stack>
         <TableContainer component={Paper} sx={{ mt: 3 }} color="primary">
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell>
-                  <Typography variant="subtitle1">Type of request</Typography>
-                </TableCell>
-                <TableCell align="left">
-                  <Typography variant="subtitle1">City of Origin</Typography>
-                </TableCell>
-                <TableCell align="left">
-                  <Typography variant="subtitle1">Destination City</Typography>
-                </TableCell>
-                <TableCell align="left">
-                  <Typography variant="subtitle1">Date of dispatch</Typography>
-                </TableCell>
-                <TableCell align="left">
-                  <Typography variant="subtitle1">Created at</Typography>
-                </TableCell>
-                <TableCell align="center">
-                  <Typography variant="subtitle1">Edit</Typography>
-                </TableCell>
-                <TableCell align="center">
-                  <Typography variant="subtitle1">Delete</Typography>
-                </TableCell>
+                {userTable &&
+                  (userTable as string[]).length &&
+                  (userTable as string[]).map(
+                    (userTable: string, index: number) => (
+                      <TableCell
+                        key={userTable}
+                        align={index <= 4 ? "left" : "center"}
+                      >
+                        <Typography variant="subtitle1">{userTable}</Typography>
+                      </TableCell>
+                    )
+                  )}
               </TableRow>
             </TableHead>
             <TableBody>
@@ -123,7 +124,8 @@ export const UserRequests = () => {
                       color={
                         row.requestType === "order" ? "success" : "primary"
                       }
-                      label={row.requestType}
+                      style={{ textTransform: "capitalize" }}
+                      label={t(row.requestType)}
                     />
                   </TableCell>
                   <TableCell align="left">{row.cityOrigin}</TableCell>

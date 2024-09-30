@@ -1,4 +1,3 @@
-import React from "react";
 import { useLocaleStorage } from "../../hooks/useLocaleStorage/useLocaleStorage";
 import { Navigate, useLocation, useParams } from "react-router-dom";
 

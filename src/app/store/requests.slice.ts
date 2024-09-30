@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { IInitialStateRequest } from "../lib/interfaces/interfaces";
+import { requestsData } from "../lib/mock/mock.data";
 
 const initialState: IInitialStateRequest = {
-  requests: [...JSON.parse(localStorage.getItem("requests") || "[]")],
+  requests: [...(JSON.parse(localStorage.getItem("requests") || "[]") || requestsData)],
 };
 
 const requestsSlice = createSlice({

@@ -9,7 +9,7 @@ import translationUK from "./uk.json";
 i18n
   .use(initReactI18next)
   .use(LanguageDetector)
-  .init({
+  .init({   
     debug: false,
     fallbackLng: "en",
     interpolation: {

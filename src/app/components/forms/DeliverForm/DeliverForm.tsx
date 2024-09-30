@@ -1,24 +1,30 @@
-import React, { FC, Key, useState } from "react";
-import Autocomplete from "@mui/material/Autocomplete";
-import Container from "@mui/material/Container";
-import Stack from "@mui/material/Stack";
-import TextField from "@mui/material/TextField";
-import Typography from "@mui/material/Typography";
-import Grid from "@mui/material/Grid2";
-import { Title } from "../../../lib/theme/styledComponent";
-import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { LocalizationProvider } from "@mui/x-date-pickers";
+import  { FC, Key, useState } from "react";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import Button from "@mui/material/Button";
+import {
+  Autocomplete,
+  Button,
+  Container,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
+
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import Grid from "@mui/material/Grid2";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+
 import dayjs from "dayjs";
+import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
 import { validationSchemaDeliverRequest } from "../../../lib/schemes/schemes";
-import { useDispatch } from "react-redux";
 import { createRequest, editRequest } from "../../../store/requests.slice";
 import { useGetCities } from "../../../hooks/useGetCountries/useGetCities";
 import { useLocaleStorage } from "../../../hooks/useLocaleStorage/useLocaleStorage";
 import { IRequest } from "../../../lib/interfaces/interfaces";
+import { Title } from "../../../lib/theme/styledComponent";
+
+import { useTranslation } from "react-i18next";
 
 export const DeliverForm: FC<{
   initialValues?: IRequest;
@@ -27,6 +33,8 @@ export const DeliverForm: FC<{
   const { getCities } = useGetCities();
   const { getLocaleStorage } = useLocaleStorage({ key: "activeUser" });
   const [resetInputField, setResetInputField] = useState<boolean>(false);
+
+  const { t } = useTranslation();
 
   const cities: { label: string }[] = getCities() || [];
   const dispatch = useDispatch();
@@ -91,12 +99,11 @@ export const DeliverForm: FC<{
                   display={"inline"}
                   style={{ fontWeight: "300!important" }}
                 >
-                  Create a <Title> Delivery Request</Title>
+                  {t("deliveryTitle.0")} <Title> {t("deliveryTitle.1")}</Title>
                 </Typography>
               </Stack>
               <Typography variant="body1" textAlign={"center"}>
-                Please fill out the form below to deliver a parcel. All fields
-                are required.
+                {t("deliveryDescription")}
               </Typography>
             </>
           )}
@@ -116,7 +123,7 @@ export const DeliverForm: FC<{
                   renderInput={(params) => (
                     <TextField
                       {...params}
-                      label="City of Origin"
+                      label={t("cityOrigin")}
                       name="cityOrigin"
                       id="cityOrigin"
                       value={formik.values.cityOrigin}
@@ -125,7 +132,8 @@ export const DeliverForm: FC<{
                         Boolean(formik.errors.cityOrigin)
                       }
                       helperText={
-                        formik.touched.cityOrigin && formik.errors.cityOrigin
+                        formik.touched.cityOrigin &&
+                        formik.errors.cityOrigin 
                       }
                       onBlur={formik.handleBlur}
                       fullWidth
@@ -143,7 +151,7 @@ export const DeliverForm: FC<{
                   renderInput={(params) => (
                     <TextField
                       {...params}
-                      label="Destination City"
+                      label={t("cityDestination")}
                       name="cityDestination"
                       id="cityDestination"
                       value={formik.values.cityDestination}
@@ -168,7 +176,7 @@ export const DeliverForm: FC<{
                 sx={{ width: "100%", mt: "-8px" }}
               >
                 <DatePicker
-                  label="Date of dispatch"
+                  label={t("dateOfDispatch")}
                   name="date"
                   value={dayjs(formik.values.date)}
                   onChange={(newValue) => {
@@ -183,7 +191,7 @@ export const DeliverForm: FC<{
           </Grid>
 
           <Button variant="contained" fullWidth type="submit">
-            {!initialValues ? "Submit" : "Edit"} Deliver
+            {!initialValues ? t("submit") : t("edit")} {t("deliver")}
           </Button>
         </Container>
       </form>

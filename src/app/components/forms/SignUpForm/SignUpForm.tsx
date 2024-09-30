@@ -1,19 +1,20 @@
-import React from "react";
-import Button from "@mui/material/Button";
-import Stack from "@mui/material/Stack";
-import TextField from "@mui/material/TextField";
-import Typography from "@mui/material/Typography";
 import { useFormik } from "formik";
+import { Button, Stack, Typography, TextField } from "@mui/material";
+
 import { validationSchemaSignUp } from "../../../lib/schemes/schemes";
 import { useLocaleStorage } from "../../../hooks/useLocaleStorage/useLocaleStorage";
 import { useNavigate } from "react-router-dom";
 import { IUser } from "../../../lib/interfaces/interfaces";
+
+import { useTranslation } from "react-i18next";
 
 export const SignUpForm = () => {
   const navigate = useNavigate();
   const { setLocaleStorage, getLocaleStorage } = useLocaleStorage({
     key: "users",
   });
+
+  const { t } = useTranslation();
 
   const formik = useFormik({
     initialValues: {
@@ -51,7 +52,7 @@ export const SignUpForm = () => {
     <form onSubmit={formik.handleSubmit}>
       <Stack direction="column" gap={2} width={"100%"} height={"fit-content"}>
         <Typography variant="h2" width={"100%"} textAlign={"center"} pb={3}>
-          Create an account
+          {t("createAccount")}
         </Typography>
 
         <TextField
@@ -60,10 +61,13 @@ export const SignUpForm = () => {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           error={formik.touched.username && Boolean(formik.errors.username)}
-          helperText={formik.touched.username && formik.errors.username}
+          helperText={
+            formik.touched.username &&
+            formik.errors.username 
+          }
           name="username"
           value={formik.values.username}
-          label="Username"
+          label={t("username")}
         />
         <TextField
           id="email"
@@ -73,8 +77,11 @@ export const SignUpForm = () => {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           error={formik.touched.email && Boolean(formik.errors.email)}
-          helperText={formik.touched.email && formik.errors.email}
-          label="Email"
+          helperText={
+            formik.touched.email &&
+            formik.errors.email 
+          }
+          label={t("email")}
         />
         <TextField
           id="password"
@@ -84,8 +91,11 @@ export const SignUpForm = () => {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           error={formik.touched.password && Boolean(formik.errors.password)}
-          helperText={formik.touched.password && formik.errors.password}
-          label="Password"
+          helperText={
+            formik.touched.password &&
+            formik.errors.password 
+          }
+          label={t("password")}
         />
         <TextField
           id="repeatPassword"
@@ -99,12 +109,13 @@ export const SignUpForm = () => {
             Boolean(formik.errors.repeatPassword)
           }
           helperText={
-            formik.touched.repeatPassword && formik.errors.repeatPassword
+            formik.touched.repeatPassword &&
+            formik.errors.repeatPassword 
           }
-          label="Repeat Password"
+          label={t("repeatPassword")}
         />
         <Button variant="contained" size="large" type="submit">
-          Sign Up
+          {t("signUp")}
         </Button>
       </Stack>
     </form>

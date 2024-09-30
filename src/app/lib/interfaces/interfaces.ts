@@ -70,6 +70,6 @@ export type IUserRow = {
 }
 
 export type THeadCells = {
-  id: keyof Omit<IRequest, "type" | "description"> | "edit" | "delete",
+  id: keyof Omit<IRequest, "type" | "description">,
   label: string,
 }

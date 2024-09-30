@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
-import FormControl from "@mui/material/FormControl";
-import MenuItem from "@mui/material/MenuItem";
+import { useEffect, useState } from "react";
+import {FormControl, MenuItem} from "@mui/material";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { useTranslation } from "react-i18next";
 import { LANGUAGES } from "../../lib/enums/enums";
