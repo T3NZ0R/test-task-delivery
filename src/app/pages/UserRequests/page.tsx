@@ -121,9 +121,9 @@ export const UserRequests = () => {
                   <TableCell component="th" scope="row">
                     <Chip
                       color={
-                        row.typeRequest === "order" ? "success" : "primary"
+                        row.requestType === "order" ? "success" : "primary"
                       }
-                      label={row.typeRequest}
+                      label={row.requestType}
                     />
                   </TableCell>
                   <TableCell align="left">{row.cityOrigin}</TableCell>

@@ -24,6 +24,12 @@ export interface INavigationItem {
   icon: ReactElement;
 }
 
+export interface ITableHeadSort {
+  order: "asc" | "desc", 
+  orderBy: keyof Omit<IRequest, "type" | "description">, 
+  onRequestSort: (event: MouseEvent, property: keyof Omit<IRequest, "type" | "description"> ) => void
+}
+
 // F O R M S
 
 export interface IUser {
@@ -53,11 +59,17 @@ export interface IProtectedRoute {
 }
 
 export type IUserRow = {
-  typeRequest: string,
+  userEmail: string,
+  requestType: string,
   cityOrigin: string,
   cityDestination: string,
   date: string,
   createdAt: string,
   edit: ReactNode,
   deleteIcon: ReactNode
+}
+
+export type THeadCells = {
+  id: keyof Omit<IRequest, "type" | "description"> | "edit" | "delete",
+  label: string,
 }

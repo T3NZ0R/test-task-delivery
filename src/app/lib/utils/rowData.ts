@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 
 
 export const createDataUser = (
-  typeRequest: string,
+  requestType: string,
   cityOrigin: string,
   cityDestination: string,
   date: string,
@@ -11,7 +11,7 @@ export const createDataUser = (
   deleteIcon: ReactNode
 ) => {
   return {
-    typeRequest,
+    requestType,
     cityOrigin,
     cityDestination,
     date,
@@ -21,21 +21,19 @@ export const createDataUser = (
   };
 };
 export const createDataAllUser = (
-  typeRequest: string,
+  userEmail: string,
+  requestType: string,
   cityOrigin: string,
   cityDestination: string,
   date: string,
   createdAt: string,
-  edit: ReactNode,
-  deleteIcon: ReactNode
 ) => {
   return {
-    typeRequest,
+    userEmail,
+    requestType,
     cityOrigin,
     cityDestination,
     date,
     createdAt,
-    edit,
-    deleteIcon,
   };
 };
