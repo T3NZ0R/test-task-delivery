@@ -1,0 +1,12 @@
+.asideNavigation {
+  background: #fff;
+  height: calc(100vh - 96px);
+  width: 65px;
+  overflow: hidden;
+  transition: width 0.5s;
+  cursor: pointer;
+  &:hover {
+    width: 220px;
+    transition: width 0.5s;
+  }
+}
