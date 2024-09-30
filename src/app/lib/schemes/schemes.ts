@@ -3,68 +3,56 @@ import { t } from "i18next";
 
 export const validationSchemaSignUp = Yup.object().shape({
   username: Yup.string()
-    .required(t("usernameRequired")) // Username is required
-    .min(3, t("usernameMin")), // Username must be at least 3 characters
-  email: Yup.string()
-    .email(t("emailInvalid")) // Invalid email address
-    .required(t("emailRequired")), // Email is required
+    .required(t("usernameRequired"))
+    .min(3, t("usernameMin")),
+  email: Yup.string().email(t("emailInvalid")).required(t("emailRequired")),
   password: Yup.string()
-    .required(t("passwordRequired")) // Password is required
-    .min(8, t("passwordMin")) // Password must be at least 8 characters
-    .matches(/[a-z]/, t("passwordLowercase")) // Password must contain at least one lowercase letter
-    .matches(/[A-Z]/, t("passwordUppercase")) // Password must contain at least one uppercase letter
-    .matches(/\d/, t("passwordNumber")) // Password must contain at least one number
-    .matches(
-      /[!@#$%^&*(),.?":{}|<>]/,
-      t("passwordSpecialCharacter") // Password must contain at least one special character
-    ),
+    .required(t("passwordRequired"))
+    .min(8, t("passwordMin"))
+    .matches(/[a-z]/, t("passwordLowercase"))
+    .matches(/[A-Z]/, t("passwordUppercase"))
+    .matches(/\d/, t("passwordNumber"))
+    .matches(/[!@#$%^&*(),.?":{}|<>]/, t("passwordSpecialCharacter")),
   repeatPassword: Yup.string()
-    .oneOf([Yup.ref("password"), ""], t("passwordsMustMatch")) // Passwords must match
-    .required(t("passwordConfirmRequired")), // Please confirm your password
+    .oneOf([Yup.ref("password"), ""], t("passwordsMustMatch"))
+    .required(t("passwordConfirmRequired")),
 });
 
 export const validationSchemaSignIn = Yup.object().shape({
-  email: Yup.string()
-    .email(t("emailInvalid")) // Invalid email address
-    .required(t("emailRequired")), // Email is required
+  email: Yup.string().email(t("emailInvalid")).required(t("emailRequired")),
   password: Yup.string()
-    .required(t("passwordRequired")) // Password is required
-    .min(8, t("passwordMin")) // Password must be at least 8 characters
-    .matches(/[a-z]/, t("passwordLowercase")) // Password must contain at least one lowercase letter
-    .matches(/[A-Z]/, t("passwordUppercase")) // Password must contain at least one uppercase letter
-    .matches(/\d/, t("passwordNumber")) // Password must contain at least one number
-    .matches(
-      /[!@#$%^&*(),.?":{}|<>]/,
-      t("passwordSpecialCharacter") // Password must contain at least one special character
-    ),
+    .required(t("passwordRequired"))
+    .min(8, t("passwordMin"))
+    .matches(/[a-z]/, t("passwordLowercase"))
+    .matches(/[A-Z]/, t("passwordUppercase"))
+    .matches(/\d/, t("passwordNumber"))
+    .matches(/[!@#$%^&*(),.?":{}|<>]/, t("passwordSpecialCharacter")),
 });
 
 export const validationSchemaOrderRequest = Yup.object().shape({
-  id: Yup.string().required(t("idRequired")), // ID is required
-
+  id: Yup.string().required(t("idRequired")),
   cityOrigin: Yup.string()
-    .required(t("originCityRequired")) // Origin city is required
-    .min(2, t("originCityMin")), // Origin city must be at least 2 characters
+    .required(t("originCityRequired"))
+    .min(2, t("originCityMin")),
   cityDestination: Yup.string()
-    .required(t("destinationCityRequired")) // Destination city is required
-    .min(2, t("destinationCityMin")), // Destination city must be at least 2 characters
-  type: Yup.string().required(t("typeRequired")), // Type is required
-  date: Yup.date().required(t("dateRequired")), // Date is required
-  createdAt: Yup.string().required(t("createdAtRequired")), // Creation date is required
+    .required(t("destinationCityRequired"))
+    .min(2, t("destinationCityMin")),
+  type: Yup.string().required(t("typeRequired")),
+  date: Yup.date().required(t("dateRequired")),
+  createdAt: Yup.string().required(t("createdAtRequired")),
   description: Yup.string()
-    .required(t("descriptionRequired")) // Description is required
-    .min(10, t("descriptionMin")), // Description must be at least 10 characters
+    .required(t("descriptionRequired"))
+    .min(10, t("descriptionMin")),
 });
 
 export const validationSchemaDeliverRequest = Yup.object().shape({
-  id: Yup.string().required(t("idRequired")), // ID is required
-
+  id: Yup.string().required(t("idRequired")),
   cityOrigin: Yup.string()
-    .required(t("originCityRequired")) // Origin city is required
-    .min(2, t("originCityMin")), // Origin city must be at least 2 characters
+    .required(t("originCityRequired"))
+    .min(2, t("originCityMin")),
   cityDestination: Yup.string()
-    .required(t("destinationCityRequired")) // Destination city is required
-    .min(2, t("destinationCityMin")), // Destination city must be at least 2 characters
-  date: Yup.date().required(t("dateRequired")), // Date is required
-  createdAt: Yup.string().required(t("createdAtRequired")), // Creation date is required
+    .required(t("destinationCityRequired"))
+    .min(2, t("destinationCityMin")),
+  date: Yup.date().required(t("dateRequired")),
+  createdAt: Yup.string().required(t("createdAtRequired")),
 });
